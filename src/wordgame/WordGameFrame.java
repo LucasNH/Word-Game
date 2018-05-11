@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -119,25 +119,27 @@ public class WordGameFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(46, 46, 46)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
-                            .addGap(15, 15, 15)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(adjectiveInput)
-                                .addComponent(nounInput)
-                                .addComponent(adverbInput)
-                                .addComponent(verbInput)
-                                .addComponent(nameInput)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(149, 149, 149)
-                            .addComponent(jLabel1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(15, 15, 15)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(adjectiveInput)
+                                    .addComponent(nounInput)
+                                    .addComponent(adverbInput)
+                                    .addComponent(verbInput)
+                                    .addComponent(nameInput)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(149, 149, 149)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +151,7 @@ public class WordGameFrame extends javax.swing.JFrame {
                                 .addComponent(removeButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(initButton))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,7 +187,7 @@ public class WordGameFrame extends javax.swing.JFrame {
                     .addComponent(initButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -238,20 +240,59 @@ public class WordGameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        // Remove the last element from the end of each of the Arrays.
-        names.remove(names.size()-1);
-        verbs.remove(verbs.size()-1);
-        adverbs.remove(adverbs.size()-1);
-        nouns.remove(nouns.size()-1);
-        adjectives.remove(adjectives.size()-1);
-
-        // These trace statements have been added to testing purposes.
-        System.out.println("Names: " + names);
-        System.out.println("Verbs: " + verbs);
-        System.out.println("Adverbs: " + adverbs);
-        System.out.println("Nouns: " + nouns);
-        System.out.println("Adjectives: " + adjectives);
-        System.out.println("\n");
+        if (nameInput.getText().isEmpty() && verbInput.getText().isEmpty() && 
+                adverbInput.getText().isEmpty() && nounInput.getText().isEmpty()
+                && adjectiveInput.getText().isEmpty()) {
+            // Remove the last element from the end of each of the Arrays.
+            names.remove(names.size()-1);
+            verbs.remove(verbs.size()-1);
+            adverbs.remove(adverbs.size()-1);
+            nouns.remove(nouns.size()-1);
+            adjectives.remove(adjectives.size()-1);
+            // These trace statements have been added to testing purposes.
+            System.out.println("Names: " + names);
+            System.out.println("Verbs: " + verbs);
+            System.out.println("Adverbs: " + adverbs);
+            System.out.println("Nouns: " + nouns);
+            System.out.println("Adjectives: " + adjectives);
+            System.out.println("\n");
+        } else {
+            int indexNames = Collections.binarySearch(names, nameInput.getText());
+            if (indexNames != -1) {
+                names.remove(indexNames);
+                nameInput.setText(null);
+            } else {
+                outputBox.setText("This entry does not exist");
+            }
+            int indexVerbs = Collections.binarySearch(verbs, verbInput.getText());
+            if (indexVerbs != -1) {
+                verbs.remove(indexVerbs);
+                verbInput.setText(null);
+            } else {
+                outputBox.setText("This entry does not exist");
+            }
+            int indexAdverbs = Collections.binarySearch(adverbs, adverbInput.getText());
+            if (indexAdverbs != -1) {
+                adverbs.remove(indexAdverbs);
+                adverbInput.setText(null);
+            } else {
+                outputBox.setText("This entry does not exist");
+            }
+            int indexNouns = Collections.binarySearch(nouns, nounInput.getText());
+            if (indexNouns != -1) {
+                nouns.remove(indexNouns);
+                nounInput.setText(null);
+            } else {
+                outputBox.setText("This entry does not exist");
+            }
+            int indexAdjectives = Collections.binarySearch(adjectives, adjectiveInput.getText());
+            if (indexAdjectives != -1) {
+                adjectives.remove(indexAdjectives);
+                adjectiveInput.setText(null);
+            } else {
+                outputBox.setText("This entry does not exist");
+            }
+        }
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void verbInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verbInputActionPerformed
